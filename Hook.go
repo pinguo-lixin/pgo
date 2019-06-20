@@ -16,6 +16,6 @@ type (
 
 // Hook lifecycle hooks
 type Hook struct {
-    ConainerBind          HookContainerBind
+    ContainerBind         HookContainerBind
     AfterCreateController HookAfterCreateController
 }

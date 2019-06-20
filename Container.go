@@ -67,7 +67,7 @@ func (c *Container) Bind(i interface{}) {
         name = name[VendorLength:]
     }
 
-    if f := App.hook.ConainerBind; f != nil {
+    if f := App.hook.ContainerBind; f != nil {
         name = f(i, name)
     }
 
