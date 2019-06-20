@@ -237,6 +237,9 @@ func (s *Server) HandleRequest(ctx *Context) {
 
     // get new controller bind to this route
     rv, action := s.createController(route, ctx)
+    if f := App.hook.AfterCreateController; f != nil {
+        rv, action = f(ctx, rv, action, route, params)
+    }
     if !rv.IsValid() {
         ctx.End(http.StatusNotFound, []byte("route not found"))
         return

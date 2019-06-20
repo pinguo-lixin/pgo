@@ -46,6 +46,7 @@ type Application struct {
     i18n       *I18n
     view       *View
     stopBefore *StopBefore // 服务停止前执行 [{"obj":"func"}]
+    hook       *Hook
 }
 
 func (app *Application) Construct() {
@@ -62,6 +63,7 @@ func (app *Application) Construct() {
     app.server = &Server{}
     app.components = make(map[string]interface{})
     app.stopBefore = &StopBefore{}
+    app.hook = &Hook{}
 }
 
 func (app *Application) Init() {
@@ -237,8 +239,13 @@ func (app *Application) GetView() *View {
 }
 
 // GetStopBefore get stopBefore component
-func (app *Application) GetStopBefore() *StopBefore{
+func (app *Application) GetStopBefore() *StopBefore {
     return app.stopBefore
+}
+
+// ConfigureHook configure application hook
+func (app *Application) ConfigureHook(f func(*Hook)) {
+    f(app.hook)
 }
 
 // Get get component by id
